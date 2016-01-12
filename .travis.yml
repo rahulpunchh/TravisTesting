@@ -1,1 +1,2 @@
 language: android
+-javac 1.7.0_76
