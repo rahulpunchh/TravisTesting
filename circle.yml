@@ -2,8 +2,7 @@
 # needs to be named `circle.yml` and should be in the top level dir of the repo
 
 general:
-  artifacts:
-   -/home/ubuntu/TravisTesting/build/outputs/reports/test/connected
+  artifacts: -/home/ubuntu/TravisTesting/build/outputs/reports/test/connected
 
 machine:
   environment:
@@ -28,4 +27,3 @@ test:
     - (./gradlew assembleDebugTest):
       timeout: 1200
     - (source scripts/environmentSetup.sh && waitForAVD)
-
