@@ -2,13 +2,13 @@ apply plugin: 'com.android.application'
 com.android.ddmlib.DdmPreferences.setTimeOut(600000)
 
 android {
-    compileSdkVersion 19
+    compileSdkVersion 22
     buildToolsVersion "23.0.2"
 
     defaultConfig {
         applicationId "com.example.punchh.hellotravistesting"
         minSdkVersion 15
-        targetSdkVersion 19
+        targetSdkVersion 22
         versionCode 1
         versionName "1.0"
         multiDexEnabled true
