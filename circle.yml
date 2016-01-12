@@ -1,25 +1,31 @@
-#
-# Build configuration for Circle CI
-#
+# Build configuration file for Circle CI
+# needs to be named `circle.yml` and should be in the top level dir of the repo
 
 general:
-    artifacts:
-        - /home/ubuntu/TravisTesting/app/build/outputs/apk/
-pre:
-- sudo add-apt-repository ppa:cwchien/gradle -y
-- sudo apt-get update
-- sudo apt-get install gradle-2.8
+  artifacts:
+   -/home/ubuntu/TravisTesting/build/outputs/reports/test/connected
 
 machine:
-    environment:
-        ANDROID_HOME: /usr/local/android-sdk-linux
+  environment:
+    ANDROID_HOME: /home/ubuntu/android
+  java:
+    version: oraclejdk6
 
 dependencies:
-    override:
-        - echo y | android update sdk --no-ui --all --filter tools,platform-tools,build-tools-23.0.2,android-22,extra-google-m2repository,extra-google-google_play_services,extra-android-support
-        - ANDROID_HOME=/usr/local/android-sdk-linux ./gradlew dependencies
+  cache_directories:
+    - ~/.android
+    - ~/android
+  override:
+    - (echo "Downloading Android SDK v19 now!")
+    - (source scripts/environmentSetup.sh && getAndroidSDK)
 
 test:
-    override:
-        - (./gradlew assemble):
-            timeout: 360
+  pre:
+    - $ANDROID_HOME/tools/emulator -avd testAVD -no-skin -no-audio -no-window:
+      background: true
+    - (./gradlew assembleDebug):
+      timeout: 1200
+    - (./gradlew assembleDebugTest):
+      timeout: 1200
+    - (source scripts/environmentSetup.sh && waitForAVD)
+
