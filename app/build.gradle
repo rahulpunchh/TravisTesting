@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+com.android.ddmlib.DdmPreferences.setTimeOut(600000)
 
 android {
     compileSdkVersion 22
@@ -18,6 +19,9 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+    }
+    adbOptions {
+        timeOutInMs 600000
     }
 }
 
