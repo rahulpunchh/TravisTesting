@@ -1,24 +1,16 @@
-# Build configuration file for Circle CI
-# needs to be named `circle.yml` and should be in the top level dir of the repo
-
-general:
-  artifacts: -/home/ubuntu/TravisTesting/build/outputs/reports/test/connected
-
-machine:
-  environment:
-    ANDROID_HOME: /home/ubuntu/android
-  java:
-    version: oraclejdk6
-
 dependencies:
-  cache_directories:
-    - ~/.android
-    - ~/android
-  override:
-    - (echo "Downloading Android SDK v19 now!")
-    - (source scripts/environmentSetup.sh && getAndroidSDK)
-
+  post:
+    - rm -r ~/.gradle
 test:
-    override:
-    - ADB_INSTALL_TIMEOUT=10 ./gradlew connectedAndroidTest
-        timeout: 360
+  override:
+    - mksdcard -l e 512M mysdcard.img
+    - emulator -avd circleci-android22 -no-audio -no-window -no-boot-anim -sdcard mysdcard.img:
+        background: true
+        parallel: true
+    - circle-android wait-for-boot
+    - adb shell input keyevent 82:
+        background: true
+    - ADB_INSTALL_TIMEOUT=10 ./gradlew clean spoon --stacktrace --info
+    - test ! -d app/build/outputs || cp -r app/build/outputs $CIRCLE_ARTIFACTS
+    - test ! -d app/build/reports || cp -r app/build/reports $CIRCLE_TEST_REPORTS
+    - test ! -d app/build/spoon || cp -r app/build/spoon $CIRCLE_TEST_REPORTS
