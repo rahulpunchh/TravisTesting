@@ -1,6 +1,6 @@
 dependencies:
   post:
-    - rm -r ~/.gradle
+    - sudo rm -r ~/.gradle
 test:
   override:
     - mksdcard -l e 512M mysdcard.img
