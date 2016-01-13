@@ -1,7 +1,6 @@
 machine:
   environment:
     PATH: "~/TravisTesting/gradle-2.8/bin:$PATH"
-    TERM: "dumb"
     ADB_INSTALL_TIMEOUT: "10"
     GRADLE_OPTS: '-Dorg.gradle.jvmargs="-Xmx2048m -XX:+HeapDumpOnOutOfMemoryError"'
 
