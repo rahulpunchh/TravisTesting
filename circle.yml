@@ -1,13 +1,21 @@
+#
+# Build configuration for Circle CI
+#
+
+general:
+    artifacts:
+        - /home/ubuntu/TravisTesting/app/build/outputs/apk/
+
 machine:
-  environment:
-    PATH: "~/TravisTesting/gradle-2.8/bin:$PATH"
-    ADB_INSTALL_TIMEOUT: "10"
-    GRADLE_OPTS: '-Dorg.gradle.jvmargs="-Xmx2048m -XX:+HeapDumpOnOutOfMemoryError"'
+    environment:
+        ANDROID_HOME: /usr/local/android-sdk-linux
 
-
+dependencies:
+    override:
+        - echo y | android update sdk --no-ui --all --filter tools,platform-tools,build-tools-23.0.1,android-22,extra-google-m2repository,extra-google-google_play_services,extra-android-support
+        - ANDROID_HOME=/usr/local/android-sdk-linux ./gradlew dependencies
 
 test:
-  override:
-    # copy the build outputs to artifacts
-    - cp -r app/build/outputs $CIRCLE_ARTIFACTS
-    # copy the test results to the test results directory.
+    override:
+        - (./gradlew assemble):
+            timeout: 360
