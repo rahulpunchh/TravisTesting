@@ -19,3 +19,8 @@ test:
     override:
         - (./gradlew assemble):
             timeout: 360
+ deployment:
+   hockey:
+     branch: master
+     commands:
+       - ipa distribute:hockeyapp -m "circleci build" --token $HOCKEYAPP_TOKEN
