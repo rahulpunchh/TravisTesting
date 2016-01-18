@@ -21,6 +21,5 @@ test:
 deployment:
   develop:
     tag: /release-.*/
-    owner:rahulpunchh
     commands:
       - ./deploy_dev.sh
