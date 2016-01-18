@@ -18,3 +18,8 @@ test:
     override:
         - (./gradlew assemble):
             timeout: 360
+deployment:
+  develop:
+    branch: master
+    commands:
+      - ./deploy_dev.sh
