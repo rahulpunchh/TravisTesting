@@ -20,6 +20,7 @@ test:
             timeout: 360
 deployment:
   develop:
-    branch: master
+    tag: /release-.*/
+    owner:rahulpunchh
     commands:
       - ./deploy_dev.sh
