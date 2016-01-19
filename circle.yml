@@ -11,11 +11,11 @@ machine:
         ANDROID_HOME: /usr/local/android-sdk-linux
 
 dependencies:
+ cache_directories:
+            - ./.android
     override:
         - echo y | android update sdk --no-ui --all --filter tools,platform-tools,build-tools-23.0.1,android-22,extra-google-m2repository,extra-google-google_play_services,extra-android-support
         - ANDROID_HOME=/usr/local/android-sdk-linux ./gradlew dependencies
-          cache_directories:
-            - ./.android
 test:
     override:
         - (./gradlew assemble):
