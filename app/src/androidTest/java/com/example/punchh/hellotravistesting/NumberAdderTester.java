@@ -9,9 +9,5 @@ import junit.framework.TestCase;
  */
 public class NumberAdderTester extends TestCase {
 
-    @SmallTest
-    public void testNumberAdder() {
-        int result = NumberAdder.addTwoNumber(3, 2);
-        assertEquals(5, result);
-    }
+
 }

@@ -2,6 +2,12 @@ apply plugin: 'com.android.application'
 com.android.ddmlib.DdmPreferences.setTimeOut(600000)
 
 android {
+    testOptions {
+        unitTests.all {
+            // All the usual Gradle options.
+            jvmArgs '-XX:MaxPermSize=256m'
+        }
+    }
     compileSdkVersion 22
     buildToolsVersion "23.0.1"
     defaultConfig {
@@ -28,4 +34,6 @@ dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.android.support:appcompat-v7:22.2.1'
     compile files('libs/HockeySDK-3.6.0.jar')
+    testCompile 'junit:junit:4.12'
+    testCompile "org.mockito:mockito-core:1.9.5"
 }

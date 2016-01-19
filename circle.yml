@@ -1,6 +1,7 @@
 #
 # Build configuration for Circle CI
 #
+
 general:
     artifacts:
         - /home/ubuntu/TravisTesting/app/build/outputs/apk/
@@ -17,8 +18,12 @@ test:
     override:
         - (./gradlew assemble):
             timeout: 360
+             post:
+                      - mkdir -p $CIRCLE_TEST_REPORTS/junit/
+                      - find . -type f -regex ".*/target/surefire-reports/.*xml" -exec cp {} $CIRCLE_TEST_REPORTS/junit/ \;
 deployment:
   develop:
-    tag: /release-.*/
+    branch: master
     commands:
       - ./deploy_dev.sh
+

@@ -1,5 +1,7 @@
 package com.example.punchh.hellotravistesting;
 
+import com.example.punchh.hellotravistesting.NumberAdder;
+
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -10,6 +12,7 @@ import static org.junit.Assert.*;
 public class ExampleUnitTest {
     @Test
     public void addition_isCorrect() throws Exception {
-        assertEquals(4, 2 + 2);
+        assertEquals(5, NumberAdder
+        .addTwoNumber(2,3));
     }
 }
